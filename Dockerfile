@@ -6,4 +6,11 @@ LABEL name="jorainer/jopenhab" \
       description="Small extension to the official openHAB docker." \
       license="Artistic-2.0"
 
-RUN if [ -f /dev/ttyACM0 ] ; then /bin/chmod o+rw /dev/ttyACM0 ; fi
+# Set working directory and entrypoint
+WORKDIR ${OPENHAB_HOME}
+COPY entrypoint /entrypoint
+RUN chmod +x /entrypoint
+ENTRYPOINT ["/entrypoint"]
+
+# Execute command
+CMD ["gosu", "openhab", "tini", "-s", "./start.sh"]
