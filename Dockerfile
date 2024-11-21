@@ -6,4 +6,4 @@ LABEL name="jorainer/jopenhab" \
       description="Small extension to the official openHAB docker." \
       license="Artistic-2.0"
 
-RUN /bin/chmod o+rw /dev/ttyACM0
+RUN if [ -f /dev/ttyACM0 ] ; then /bin/chmod o+rw /dev/ttyACM0 ; fi
